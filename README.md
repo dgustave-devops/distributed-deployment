@@ -131,12 +131,17 @@ More could be found on this [here](https://docs.moodle.org/405/en/Apache) .
    sudo systemctl restart apache2
    ```
 
-
-
 ### File System Layer
-**Elastics File System**
-1. Efs offers two types of file sytems. Regional which stores data across multiple az for high availability and onezone which stores data in a single az in an effort to optimize cost but reduces resilience.
-2. To connect your Amazon EFS file system to your Amazon EC2 instance, you must create two security groups: one for your Amazon EC2 instance and another for your mount target.
+**Elastics File System** offers two types of file sytems. Regional which stores data across multiple az for high availability and onezone which stores data in a single az in an effort to optimize cost but reduces resilience. To connect your Amazon EFS file system to your Amazon EC2 instance, you must create two security groups: one for your Amazon EC2 instance and another for your mount target.
+
+1. Open up your AWS Console and select the EFS Service.
+2. Click **Create file system** in the top right corner.
+![aws-efs-service](https://github.com/user-attachments/assets/22138234-f49f-4893-b9e7-be42b01f3474)
+
+3. Set the **Name** field to **distri-efs**.
+4. Select an appropriate VPC.
+5. Scroll to the bottom of the page and click the **Create file system** button.
+![aws-efs-created](https://github.com/user-attachments/assets/018eb3e1-d1f2-4bf1-95a3-86ab07e0c121)
 
 4. Create a Moodle data directory and set file permissions (where Moodle will store its files):
    ```bash

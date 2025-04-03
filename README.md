@@ -25,7 +25,20 @@ This repository will share a distributed deployment of the open source Moodle ap
 5. Scroll to the bottm, and click the orange **Create security group** button to the bottom right corner.
 ![aws-ec2-app-sec-complete](https://github.com/user-attachments/assets/817ea415-de1f-4e13-9f2d-6c9c420332a1)
 
-
+**EC2 Instance**
+1. Open up your AWS Console and select the EC2 Service.
+2. Select **Instances** from the drop down on the left.
+3. Select **Launch instances** in the top right orange button.
+4. Set the instance **name** to **app** in the name field, under the **Name and tags** section.
+5. Under the **OS and images** section, we are going to select a linux **Ubuntu image** (24.04 LTS).
+6. Under the **Instance type** section, we are going to select a **t2.micro** instancee for demonstration purposes. Details on the types of AWS instances are available [here](https://aws.amazon.com/ec2/instance-types/) .
+7. Under the **Key pair** section, select create a new key pair. Select **RSA** for type and **.pem** for format. Provide an appropriate name, and click create key pair. Your private keypair will automatically be downloaded to your machine.
+8. Under the **Network settings** section, Click **edit** on the corner to the right of the section heading, and enable auto-assign public IP. This will provide the EC2 instance with a publicly accessible IP address (Please not this is not a static Ip and may change when the instance is shutdown and start, or restarted. For a static IP, please look into aws elastic IPs. we'll use the default VPC and subnet for demonstration purposes, and select the **app-sec-group** security group created above. \
+**Please note:** The public IP for the application servers in this instance (Yes, pun intended) will be removed once configuration is complete. This is because the application servers will utimately only be accessed by the application load balancer internally within the VPC. All resources are provided private IPs for free which can be access internally within the AWS network.
+9. Under the **Configure storage** section, configure an 8GB GP3 EBS volume.
+10. Scroll down to the bottom of the page and select **launch instance**.
+11. On the EC2 instance details page, click **Actions** button, >**Networking** >**Manage IP Addresses**. Select the network interface represented by **eth0** and enable auto-assign public IP. Then click save and confirm the changes. The EC2 instance should now be assigned a public IP address.
+![aws-ec2-mono-instance-details](https://github.com/user-attachments/assets/e275cfb2-4945-42f4-b927-1efc0bdeb00f)
 
 
 

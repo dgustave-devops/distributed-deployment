@@ -196,4 +196,15 @@ Example (using NFS): fs-<file_system_id>:/ /mnt/efs nfs4 nfsvers=4.1,rsize=10485
 sudo mount -a to mount the file system.   
 
 ### Database Layer
-1. 
+1. Open the AWS console and select the **Aurora and RDS** service.
+2. On the left corner, click **Databases**.
+3. On the top right corner, click the orange **Create database** button.
+4. Select **Standard** under **Method**, select **Aurora (MySQL Compatible)** under **Engine**, and select **Production** under **Template**.
+5. Set datababse name to **dsitri-database** under the **Settings** section.
+6. Set **admin** as the **Username**, and select **Self managed** under **Credentials management**.
+7. Set an appriate database password.
+8. Scroll down to **Instance configuration** and select **Serverless v2**.
+9. Set **Minimun (ACU)** to **1**, and **Maximum (ACU)** to **2**.
+10. Under **Availability and durability** section select **Multi-AZ deployment**.
+11. Scroll to the bottom of the page and click the **Create database** button.
+12. 

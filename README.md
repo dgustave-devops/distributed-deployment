@@ -1,5 +1,5 @@
 # Distributed Application
-This repository will share a distributed deployment of the open source Moodle application on Amazon Web Services (AWS).
+This repository will share a distributed deployment of the open source Moodle application on Amazon Web Services.
 ![distributed-deployment](https://github.com/user-attachments/assets/90e0809c-6a41-4e4d-84e7-644b24502bf1)
 
 

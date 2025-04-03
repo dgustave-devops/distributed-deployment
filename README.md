@@ -37,11 +37,99 @@ This repository will share a distributed deployment of the open source Moodle ap
 **Please note:** The public IP for the application servers in this instance (Yes, pun intended) will be removed once configuration is complete. This is because the application servers will utimately only be accessed by the application load balancer internally within the VPC. All resources are provided private IPs for free which can be access internally within the AWS network.
 9. Under the **Configure storage** section, configure an 8GB GP3 EBS volume.
 10. Scroll down to the bottom of the page and select **launch instance**.
+
+**Please note:** AWS no longer offers free public IP addresses and instance assigned a public IP will be charged accordingly. In adddition to this change in policy, newly launched instance will no longer be automatically assigned a public IP address. Therefore after launching an EC2 instance, to remotely access through a machine outside of the VPC, a public IP address or an elastic IP address will have to be assigned to the EC2 instance. In this case, we will assign a regular public IP address for demonstration purposes. Please note regular public IP address may change when the instance is restarted.
+
 11. On the EC2 instance details page, click **Actions** button, >**Networking** >**Manage IP Addresses**. Select the network interface represented by **eth0** and enable auto-assign public IP. Then click save and confirm the changes. The EC2 instance should now be assigned a public IP address.
 ![aws-ec2-mono-instance-details](https://github.com/user-attachments/assets/e275cfb2-4945-42f4-b927-1efc0bdeb00f)
 
+<br>
 
+![aws-ec2-instance-publicip](https://github.com/user-attachments/assets/77204e88-1925-4049-8f33-4b7b7bde1cb3)
 
+12. Remotely log into the instance via ssh using the previously downloaded key pair. Please ensure the permissions on your private key is secure else there may be issue with remotely accessing the instance.
+   ```bash
+   ssh -i <private key location> username@serverIP
+   ```
+13. Update virutal machine and upgrade packages
+      ```bash
+      sudo apt update -y
+      sudo apt upgrade -y
+      ```
+      ![aws-ec2-instance-update](https://github.com/user-attachments/assets/19fce26a-e460-4e12-b0fd-7edf7dc35731)
+
+14. Installing Webserver - Apache 2
+   ```bash
+   sudo apt install apache2 -y
+   ```
+
+15. Installing PHP and PHP modules
+   ```bash
+   sudo apt install php libapache2-mod-php php-mysql php-xml php-mbstring php-zip php-intl php-gd php-curl php-soap -y
+   ```
+**Download and Setup Moodle**
+1. Download the latest version of Moodle
+   ```bash
+   sudo wget https://download.moodle.org/download.php/direct/stable405/moodle-latest-405.tgz
+   ```
+2. Extract the moodle archive
+   ```bash
+   sudo tar -xvzf moodle-latest-405.tgz
+   ```
+3. Move the moodle files to the webroot directory
+   ```bash
+   sudo mv moodle /var/www/
+   ```
+4. Create a Moodle data directory and set file permissions (where Moodle will store its files):
+   ```bash
+   sudo mkdir /var/www/moodledata
+   sudo chown -R www-data:www-data /var/www/moodledata /var/www/moodle
+   sudo chmod -R 755 /var/www/moodledata /var/www/moodle
+   ```
+   
+**Configure Apache 2 for Moodle**
+1. Create a new apache configuration file for moodle
+   ```bash
+   sudo nano /etc/apache2/sites-available/moodle.conf
+   ```
+**Important notice regarding Moodle routing on version 4.5+**
+Since Moodle 4.5, a Routing Engine is included in Moodle. This needs to be configured to handle requests using the "FallbackResource" directive:
+More could be found on this [here](https://docs.moodle.org/405/en/Apache) .
+
+2. Replicate the following strucure:
+   ```bash
+   ServerAdmin admin@example.com
+
+   DocumentRoot /var/www/moodle
+   Servername demo.example.com
+   <Directory /var/www/moodle>
+    #Options Indexes FollowSymLinks MultiViews
+    AllowOverride None
+    Require all granted
+    FallbackResource /moodle/r.php
+   </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/moodle_error.log
+    CustomLog ${APACHE_LOG_DIR}/moodle_access.log combined
+   ```
+
+3. Enable the moodle site and rewrite module, then restart
+   ```bash
+   sudo a2ensite moodle.conf
+   sudo a2enmod rewrite
+   ```
+4. Remember to disable the default apache site
+   ```bash
+   sudo a2dissite 000-default.conf
+   ```
+5. Set PHP max_input_vars to 5000 and remove ";".
+   ```bash
+   sudo nano /etc/php/8.3/apache2/php.ini
+   ```
+6. Restart apache
+   ```bash
+   sudo ssytemctl restart apache2
+   ```
 
 
 

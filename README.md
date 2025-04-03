@@ -143,7 +143,24 @@ More could be found on this [here](https://docs.moodle.org/405/en/Apache) .
 5. Scroll to the bottom of the page and click the **Create file system** button.
 ![aws-efs-created](https://github.com/user-attachments/assets/018eb3e1-d1f2-4bf1-95a3-86ab07e0c121)
 
-4. Create a Moodle data directory and set file permissions (where Moodle will store its files):
+
+**Mount Targets**
+
+**Mount targets Security Group**
+1. Open the EC2 dashboard and select **security groups** under the **Resources** section.
+2. Click the orange **Create security group** button to the top right.
+3. Under the **Basic details** section, set the **security group name** to **efs-mount-sec-group**, **description to **Allow app-sec-group to access mounts**, and select the appropriate **VPC**. This security group will only allow access from the **Applications' security group** once configuration is complete.
+4. Under the inbound section, click **Add rule**, and open the following ports, 2049 for **ONLY** the **app-sec-group**. This configuration will ensure **ONLY** resources withing the **app-sec-group** can access the mounts on port **2049**.
+![aws-efs-mount-sec-group](https://github.com/user-attachments/assets/cd7b9bb1-afe6-4aa1-8c32-de3cf8e9e4cd)
+5. Scroll to the bottm, and click the orange **Create security group** button to the bottom right corner.
+6. Navigate to EFS and Select the **distri-efs** file system.
+7. Scroll down and click on the **Network** tab.
+8. Click the **Create mount target** button.
+9. Scroll down to the **Mount targets** section and click the **Add mount target** button.
+10. Create two mount targets, one in us-east-1a and another in us-east-1b.
+11. Set the appropriate subnets, and select the **efs-mount-sec-group** under **Security groups**.
+
+7. Create a Moodle data directory and set file permissions (where Moodle will store its files):
    ```bash
    sudo mkdir /var/www/moodledata
    sudo chown -R www-data:www-data /var/www/moodledata /var/www/moodle

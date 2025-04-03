@@ -159,14 +159,40 @@ More could be found on this [here](https://docs.moodle.org/405/en/Apache) .
 9. Scroll down to the **Mount targets** section and click the **Add mount target** button.
 10. Create two mount targets, one in us-east-1a and another in us-east-1b.
 11. Set the appropriate subnets, and select the **efs-mount-sec-group** under **Security groups**.
+12. Click the orange **Save** button at the bottom of the page.
+![aws-efs-mount-complete](https://github.com/user-attachments/assets/b2a1a2a9-0189-4598-bd38-b91a3bbb25e3)
 
-7. Create a Moodle data directory and set file permissions (where Moodle will store its files):
+**Mounting the file system**
+1. Create a directory where you want to mount the EFS file system
+```bash
+sudo mkdir /mnt/efs
+```
+2. Using nfs-utils, install the nfs-utils package, run one of the following commands for Ubuntu distributions:
+```bash
+sudo apt install nfs-common -y
+```
+3. Using the NFS client: Copy the mount command from the EFS console under **Attached**. 
+4. Paste and execute the command in your EC2 instance's terminal. Example:
+```bash
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport fs-example.efs.us-east-1.amazonaws.com:/ <mount-location>
+```
+5. Test and verify that the file system was successfully mounted by listing its contents.
+```bash
+sudo ls -al /mnt/efs
+```
+![aws-efs-successful-mount](https://github.com/user-attachments/assets/cdcb8d9f-5f74-4856-9d1f-fd459b47184e)
+
+6. Create a Moodle data directory and set file permissions (where Moodle will store its files):
    ```bash
-   sudo mkdir /var/www/moodledata
-   sudo chown -R www-data:www-data /var/www/moodledata /var/www/moodle
-   sudo chmod -R 755 /var/www/moodledata /var/www/moodle
+   sudo mkdir /mnt/efs/moodledata
+   sudo chown -R www-data:www-data /mnt/efs/moodledata
+   sudo chmod -R 755 /mnt/efs/moodledata
    ```
 
-   
+(Optional) Configure for Automatic Mounting:
+You can configure your EC2 instance to automatically mount the EFS file system on startup by adding an entry to the /etc/fstab file. 
+Example (using EFS mount helper): fs-<file_system_id>:/ /mnt/efs efs tls,_netdev 0 0. 
+Example (using NFS): fs-<file_system_id>:/ /mnt/efs nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,_netdev 0 0. 
+sudo mount -a to mount the file system.   
 
 ### Database Layer

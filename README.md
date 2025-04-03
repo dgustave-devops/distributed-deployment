@@ -81,11 +81,10 @@ This repository will share a distributed deployment of the open source Moodle ap
    ```bash
    sudo mv moodle /var/www/
    ```
-4. Create a Moodle data directory and set file permissions (where Moodle will store its files):
+4. Set file permissions for the Moodle application:
    ```bash
-   sudo mkdir /var/www/moodledata
-   sudo chown -R www-data:www-data /var/www/moodledata /var/www/moodle
-   sudo chmod -R 755 /var/www/moodledata /var/www/moodle
+   sudo chown -R www-data:www-data /var/www/moodle
+   sudo chmod -R 755 /var/www/moodle
    ```
    
 **Configure Apache 2 for Moodle**
@@ -129,15 +128,8 @@ More could be found on this [here](https://docs.moodle.org/405/en/Apache) .
    ```
 6. Restart apache
    ```bash
-   sudo ssytemctl restart apache2
+   sudo systemctl restart apache2
    ```
-
-
-
-
-
-
-
 
 
 
@@ -146,5 +138,13 @@ More could be found on this [here](https://docs.moodle.org/405/en/Apache) .
 1. Efs offers two types of file sytems. Regional which stores data across multiple az for high availability and onezone which stores data in a single az in an effort to optimize cost but reduces resilience.
 2. To connect your Amazon EFS file system to your Amazon EC2 instance, you must create two security groups: one for your Amazon EC2 instance and another for your mount target.
 
+4. Create a Moodle data directory and set file permissions (where Moodle will store its files):
+   ```bash
+   sudo mkdir /var/www/moodledata
+   sudo chown -R www-data:www-data /var/www/moodledata /var/www/moodle
+   sudo chmod -R 755 /var/www/moodledata /var/www/moodle
+   ```
+
+   
 
 ### Database Layer

@@ -200,7 +200,7 @@ sudo mount -a to mount the file system.
 2. On the left corner, click **Databases**.
 3. On the top right corner, click the orange **Create database** button.
 4. Select **Standard** under **Method**, select **Aurora (MySQL Compatible)** under **Engine**, and select **Production** under **Template**.
-5. Set datababse name to **dsitri-database** under the **Settings** section.
+5. Set datababse name to **dsitri_database** under the **Settings** section.
 6. Set **admin** as the **Username**, and select **Self managed** under **Credentials management**.
 7. Set an appropriate database password.
 8. Scroll down to **Instance configuration** and select **Serverless v2**.

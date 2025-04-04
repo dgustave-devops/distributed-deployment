@@ -202,9 +202,10 @@ sudo mount -a to mount the file system.
 4. Select **Standard** under **Method**, select **Aurora (MySQL Compatible)** under **Engine**, and select **Production** under **Template**.
 5. Set datababse name to **dsitri-database** under the **Settings** section.
 6. Set **admin** as the **Username**, and select **Self managed** under **Credentials management**.
-7. Set an appriate database password.
+7. Set an appropriate database password.
 8. Scroll down to **Instance configuration** and select **Serverless v2**.
-9. Set **Minimun (ACU)** to **1**, and **Maximum (ACU)** to **2**.
+9. Set **Minimun (ACU)** to **1**, and **Maximum (ACU)** to **2** (For demonstration purposes).
 10. Under **Availability and durability** section select **Multi-AZ deployment**.
 11. Scroll to the bottom of the page and click the **Create database** button.
-12. 
+
+

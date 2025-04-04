@@ -208,4 +208,28 @@ sudo mount -a to mount the file system.
 10. Under **Availability and durability** section select **Multi-AZ deployment**.
 11. Scroll to the bottom of the page and click the **Create database** button.
 
+### Complete Moodle Setup via Browser
+1. Open a browser and navigate to your server's domain or IP address. Follow the on-screen installation wizard to configure Moodle. Provide the database credentials and configure the necessary settings.
+![moodle-setup-page](https://github.com/user-attachments/assets/434be730-baf7-4c3c-ac47-c64ded2cdac1)
+
+2. Confirm paths
+![moodle-paths](https://github.com/user-attachments/assets/374ef2e4-5130-4a34-961f-de7f765580d9)
+
+3. Choose database driver
+![moodle-database](https://github.com/user-attachments/assets/47f758eb-2a18-4b86-a0e8-ac785548701b)
+
+4. Database settings
+![moodel-database-settings](https://github.com/user-attachments/assets/3f74a58a-da17-4ecd-8c64-1e5705f32764)
+
+5. Moodle copyright notice
+![moodle-copyright](https://github.com/user-attachments/assets/7df0c049-cd22-450b-b744-a99b035ab517)
+
+6. Moodle server checks
+![moodle-server-checks](https://github.com/user-attachments/assets/112dd500-1646-4a4d-a8c3-1d29ea70b3ae)
+
+7. During the installation process, Moodle will guide you through setting up the administrator account and configuring your site's main settings.
+
+**Successful Installation**
+We have now successfully installed Moodle LMS on a Linux Ubuntu 24.04 LTS server. You can now log into Moodle and manage your learning environment.
+![moodle-complete](https://github.com/user-attachments/assets/6ef3161a-5390-4220-937d-44332dbdcff0)
 
